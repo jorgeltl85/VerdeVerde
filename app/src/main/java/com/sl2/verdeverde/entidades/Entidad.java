@@ -2,35 +2,28 @@ package com.sl2.verdeverde.entidades;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Transient;
 import org.greenrobot.greendao.annotation.Generated;
 
-@Entity(nameInDb = "Usuario")
-public class Usuario {
+@Entity(nameInDb = "Entidad")
+public class Entidad {
     @Id(autoincrement = true)
     private Long id;
 
     @Property(nameInDb = "NOMBRE")
+    @NotNull
     private String nombre;
 
     @Property(nameInDb = "DESCRIPCION")
     private String descripcion;
 
-    @NotNull
-    private String email;
-
-    @Property(nameInDb = "USUARIO")
-    @Index(unique = true)
-    private String usuario;
-
-    @Property(nameInDb = "CLAVE")
-    private String clave;
+    @Property(nameInDb = "RUC")
+    private String ruc;
 
     @Transient
-    private int contadorDeUsoUsuarios; // not persisted
+    private int contadorDeUsoEntidades; // not persisted
 
     @Property(nameInDb = "CREACION")
     private String creacion;
@@ -38,22 +31,19 @@ public class Usuario {
     @Property(nameInDb = "ACTUALIZACION")
     private String actualizacion;
 
-    @Generated(hash = 662341584)
-    public Usuario(Long id, String nombre, String descripcion,
-            @NotNull String email, String usuario, String clave, String creacion,
-            String actualizacion) {
+    @Generated(hash = 1779145540)
+    public Entidad(Long id, @NotNull String nombre, String descripcion, String ruc,
+            String creacion, String actualizacion) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.email = email;
-        this.usuario = usuario;
-        this.clave = clave;
+        this.ruc = ruc;
         this.creacion = creacion;
         this.actualizacion = actualizacion;
     }
 
-    @Generated(hash = 562950751)
-    public Usuario() {
+    @Generated(hash = 1797158407)
+    public Entidad() {
     }
 
     public Long getId() {
@@ -80,28 +70,12 @@ public class Usuario {
         this.descripcion = descripcion;
     }
 
-    public String getEmail() {
-        return this.email;
+    public String getRuc() {
+        return this.ruc;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getUsuario() {
-        return this.usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getClave() {
-        return this.clave;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
+    public void setRuc(String ruc) {
+        this.ruc = ruc;
     }
 
     public String getCreacion() {
@@ -119,4 +93,6 @@ public class Usuario {
     public void setActualizacion(String actualizacion) {
         this.actualizacion = actualizacion;
     }
+
+
 }
