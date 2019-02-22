@@ -6,8 +6,7 @@ import com.sl2.verdeverde.entidades.DaoMaster;
 import com.sl2.verdeverde.entidades.DaoSession;
 import com.sl2.verdeverde.entidades.Usuario;
 
-public class DemoApp extends Application {
-
+public class Principal extends Application {
     private DaoSession mDaoSession;
 
     @Override
@@ -19,6 +18,7 @@ public class DemoApp extends Application {
         // USER CREATION FOR DEMO PURPOSE
         if(mDaoSession.getUsuarioDao().loadAll().size() == 0){
             mDaoSession.getUsuarioDao().insert(new Usuario(1L, "Jorge Tufiño","Primero", "jorge@set.com","jorgeltl85","jorgeluis","",""));
+
         }
     }
 
