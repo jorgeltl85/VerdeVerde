@@ -19,6 +19,8 @@ import com.sl2.verdeverde.entidades.Usuario;
 import com.sl2.verdeverde.entidades.UsuarioDao;
 
 import org.greenrobot.greendao.database.Database;
+import org.greenrobot.greendao.query.QueryBuilder;
+import org.greenrobot.greendao.query.WhereCondition;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
         etUserEmail = (EditText) findViewById(R.id.Email);
         etPassword = (EditText) findViewById(R.id.Password);
+
+        Usuario usuario =  buscarUnUsuario("jorgeltl85");
+
+
     }
 
     public void SignIN(View view) {
@@ -183,6 +189,15 @@ public class MainActivity extends AppCompatActivity {
         String email1 = cursorEsteEs.getString(cursorEsteEs.getColumnIndex("USERNAME"));
         int id1 = cursorEsteEs.getInt(cursorEsteEs.getColumnIndex("ID"));
 
+        //Usuario uuu = mDaoSession.getUsuarioDao().readEntity(base.rawQuery("SELECT * FROM USUARIO WHERE USUARIO"));
+        Usuario uuu = mDaoSession.getUsuarioDao().load(1L);
+        Usuario uuu1 = mDaoSession.getUsuarioDao().loadByRowId(1L);
+
+        //Cursor cursor=mDaoSession.getUsuarioDao().getDatabase().q.query("LOGIN", null, "USERNAME=?", new String[]{userName}, null, null, null);
+
+        //Usuario uu2 = mDaoSession.getUsuarioDao().readEntity(base.);
+
+
         //us = cursorEsteEs.getRow() (getEntiti); //para empatar con el de abajo
 
         //Cursor cursorJL = mDaoSession.getDatabase().rawQuery(query.getSql(), query.getParameters());
@@ -265,4 +280,43 @@ queryBuilder.whereOr(GeneralReceiptDao.Properties.ReceiptId.like("%JODAN%"))；
     //http://greenrobot.org/greendao/documentation/queries/
     //https://www.programcreek.com/java-api-examples/?api=android.database.sqlite.SQLiteQueryBuilder
     //https://www.codota.com/code/java/classes/android.database.sqlite.SQLiteQueryBuilder
+
+    //Relaciones en DAO
+    //http://greenrobot.org/greendao/documentation//relations/
+
+    /**
+     * Metodo para buscar un usuario con algunos métodos
+     * @param valorBusqueda
+     */
+    private Usuario buscarUnUsuario(String valorBusqueda){
+
+        mDaoSession = ((Principal) this.getApplication()).getDaoSession();
+        base = ((Principal) this.getApplication()).getDatabaseSinContexto();
+
+        //Obtener toda la lista de usuarios e imprimirla
+        List<Usuario> users = mDaoSession.getUsuarioDao().loadAll();
+        for (Usuario p : users) {
+            System.out.println(p);
+        }
+
+        // Prueba con QueryBuilder
+        //https://www.programcreek.com/java-api-examples/?api=de.greenrobot.dao.query.WhereCondition
+        //ejemplo numero 2
+        WhereCondition wc = UsuarioDao.Properties.Usuario.in(valorBusqueda);
+        QueryBuilder<Usuario> queryBuilder = mDaoSession.getUsuarioDao().queryBuilder();
+        queryBuilder.where(wc);
+
+        Usuario usuarioEncontrado = queryBuilder.unique();
+        System.out.println(usuarioEncontrado.getNombre());
+        Log.i("salida",usuarioEncontrado.getNombre());
+
+
+        return usuarioEncontrado;
+
+    }
+
+    //String[] seletionArguments = {"name"};
+    //StringBuilder sb = new StringBuilder("SELECT * FROM TABLENAME TN WHERE TN.NAME = ?");
+    //String sale = sb.toString();
+    //Cursor cursor = base.rawQuery(sale,seletionArguments);
 }
