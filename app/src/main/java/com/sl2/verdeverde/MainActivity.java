@@ -301,6 +301,7 @@ queryBuilder.whereOr(GeneralReceiptDao.Properties.ReceiptId.like("%JODAN%"))；
 
         // Prueba con QueryBuilder
         //https://www.programcreek.com/java-api-examples/?api=de.greenrobot.dao.query.WhereCondition
+        //https://developer.android.com/reference/android/database/sqlite/SQLiteQueryBuilder
         //ejemplo numero 2
         WhereCondition wc = UsuarioDao.Properties.Usuario.in(valorBusqueda);
         QueryBuilder<Usuario> queryBuilder = mDaoSession.getUsuarioDao().queryBuilder();
@@ -314,6 +315,14 @@ queryBuilder.whereOr(GeneralReceiptDao.Properties.ReceiptId.like("%JODAN%"))；
         return usuarioEncontrado;
 
     }
+
+    //Importante
+    //Query y queryraw
+    //http://www.androidcurso.com/index.php/recursos/42-unidad-9-almacenamiento-de-datos/310-los-metodos-query-y-rawquery
+
+    //queryraw
+    //selectionArgs = new String[] { searchString + "%" };
+    //Cursor c = db.rawQuery("SELECT column FROM table WHERE column=?", selectionArgs);
 
     //String[] seletionArguments = {"name"};
     //StringBuilder sb = new StringBuilder("SELECT * FROM TABLENAME TN WHERE TN.NAME = ?");
